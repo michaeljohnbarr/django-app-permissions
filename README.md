@@ -33,7 +33,7 @@ The key here is the `app_name` argument in the includes. Without it, the `app_pe
 1. Add `app_permissions` to `settings.INSTALLED_APPS`.
 2. Create permissions (will look into automating this in future versions)
 3. Add `app_permissions.middleware.AppPermissionsMiddleware` to your `settings.MIDDLEWARE_CLASSES`.
-4. Configure the `APP_PERMISSIONS` (see below) - make sure to add your protected apps to `APP_PERMISSIONS['PROTECTED_APPS']`
+4. Configure the `APP_PERMISSIONS` ([see below](#app_permissions-defaults)) - make sure to add your protected apps to `APP_PERMISSIONS['PROTECTED_APPS']`
 
 
 ### APP_PERMISSIONS defaults
