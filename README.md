@@ -1,8 +1,13 @@
 django-app-permissions
 ======================
 
-App-based permissions for Django.
+App-based permissions for Django based off of URL patterns. In order for this to work, each application should have their URLs included as follows:
 
+    urlpatterns = patterns('',
+        url(r'^myapp/', include('myapp.urls', app_name='myapp')),
+    )
+    
+The key here is the `app_name` argument in the includes. Without it, the `app_permissions.middleware.AppPermissionsMiddleware` will not work. For more information, see [Reversing namespaced URLs](https://docs.djangoproject.com/en/dev/topics/http/urls/#reversing-namespaced-urls).
 Configuration
 -------------
 1. Add `app_permissions` to `settings.INSTALLED_APPS`.
