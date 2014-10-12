@@ -4,7 +4,7 @@ App-based permissions for Django based off of URL patterns. Django's [Permission
 
 With django-app-permissions, you can now prevent the view from being displayed to the User if the User doesn't have permissions for the app, and either raise an [exception](https://docs.djangoproject.com/en/dev/ref/exceptions/) or return a custom [HttpResponse](https://docs.djangoproject.com/en/dev/ref/request-response/#httpresponse-subclasses).
 
-**Note:** This app is currently in an **alpha** development state. Please submit bug reports/feature requests if you have suggestions or run into problems.
+**Note:** This app is currently in an **alpha** development state. Please [submit an issue](https://github.com/michaeljohnbarr/django-app-permissions/issues) if you have suggestions or run into problems.
 
 ### Creating app-based permissions
 For each application that you want to protect with application permissions, create an AppPermission:
