@@ -13,6 +13,7 @@ Configuration
 1. Add `app_permissions` to `settings.INSTALLED_APPS`.
 2. Add `app_permissions.middleware.AppPermissionsMiddleware` to your `settings.MIDDLEWARE_CLASSES`.
 3. Configure the `APP_PERMISSIONS` (see below).
+4. Create permissions (will look into automating this in future versions).
 
 
 APP_PERMISSIONS defaults
@@ -25,3 +26,12 @@ APP_PERMISSIONS defaults
         ),
         'PROTECTED_APPS': (),
     }
+
+Creating app-based permissions
+------------------------------
+    from app_permissions.models import AppPermission
+    AppPermission.objects.create(
+        name='Can View MyApp', 
+        codename='can_view_myapp', 
+        app_name='myapp'
+    )
