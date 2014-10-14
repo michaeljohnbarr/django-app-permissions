@@ -24,10 +24,28 @@ For each application that you want to protect with application permissions, crea
 In order for django-app-permissions to work, each application should have their URLs included as follows:
 
     urlpatterns = patterns('',
-        url(r'^myapp/', include('myapp.urls', app_name='myapp')),
+        url(r'^myapp/', include('myapp.urls', namespace='myapp', app_name='myapp')),
     )
     
-The key here is the `app_name` argument in the includes. Without it, the `app_permissions.middleware.AppPermissionsMiddleware` will not work. For more information, see Django's documentation on [Reversing namespaced URLs](https://docs.djangoproject.com/en/dev/topics/http/urls/#reversing-namespaced-urls).
+The key here is the `namespace` and `app_name` arguments in the includes. Without these, the `app_permissions.middleware.AppPermissionsMiddleware` will not work. For more information, see Django's documentation on [Reversing namespaced URLs](https://docs.djangoproject.com/en/dev/topics/http/urls/#reversing-namespaced-urls). How it works is that the middleware will check both the `namespace` and `current_app` for any `APP_PERMISSIONS['PROTECTED_APPS']`. 
+
+As an example, if we had a nested URL structure:
+    # Root URL patterns   ./api/
+    urlpatterns = patterns('',
+        url(r'^api/', includes('api.urls', namespace='api', app_name='api')),
+    )
+    
+    # api.urls patterns   ./api/myapp/
+    urlpatterns('',
+        url(r'^myapp/', includes('myapp.api.urls', namespace='myapp', app_name='myapp')),
+    )
+
+...and we had this setup in our settings:
+    APP_PERMISSIONS = {
+        'PROTECTED_APPS': ('myapp', )
+    }
+    
+Any URL with "myapp" in the `namespace` or `current_app` would be protected. Note that the middleware utilizes [django.contrib.auth.models.User.has_module_perms](https://docs.djangoproject.com/en/dev/ref/contrib/auth/#django.contrib.auth.models.User.has_module_perms), which means that if the user has individual permissions to Create/Update/Delete any model in the application, they will be granted access without you having to create any custom permissions using `app_permissions.models.AppPermissions`.
 
 ### Configuration
 1. Add `app_permissions` to `settings.INSTALLED_APPS`.
