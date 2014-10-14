@@ -30,6 +30,7 @@ In order for django-app-permissions to work, each application should have their 
 The key here is the `namespace` and `app_name` arguments in the includes. Without these, the `app_permissions.middleware.AppPermissionsMiddleware` will not work. For more information, see Django's documentation on [Reversing namespaced URLs](https://docs.djangoproject.com/en/dev/topics/http/urls/#reversing-namespaced-urls). How it works is that the middleware will check both the `namespace` and `current_app` for any `APP_PERMISSIONS['PROTECTED_APPS']`. 
 
 As an example, if we had a nested URL structure:
+
     # Root URL patterns   ./api/
     urlpatterns = patterns('',
         url(r'^api/', includes('api.urls', namespace='api', app_name='api')),
