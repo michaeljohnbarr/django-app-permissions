@@ -41,6 +41,7 @@ As an example, if we had a nested URL structure:
     )
 
 ...and we had this setup in our settings:
+
     APP_PERMISSIONS = {
         'PROTECTED_APPS': ('myapp', )
     }
